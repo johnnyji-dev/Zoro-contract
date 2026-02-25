@@ -962,6 +962,7 @@ contract Comptroller is ComptrollerV7Storage, ComptrollerInterface, ComptrollerE
     }
 
     function _initializeMarket(address cToken) internal {
+        // Futureproof: getBlockNumber() returns block.timestamp (zkSync); safe32 reverts when >= 2**32 (~year 2106). See docs Task-List-Borrowing-Flow-And-Futureproof-Issue.
         uint32 blockNumber = safe32(getBlockNumber(), "block number exceeds 32 bits");
 
         CompMarketState storage supplyState = compSupplyState[cToken];
